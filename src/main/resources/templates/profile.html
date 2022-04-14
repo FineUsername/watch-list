@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<title>Profile</title>
+</head>
+
+<body>
+	<p>Profile</p>
+	
+	<form th:object="${user}" th:with="profilePictureFolder='src\\main\\resources\\images\\user\\profile-pictures'">
+		<img th:src="@{${profilePictureFolder + '\\' + user.profilePicturePath}}" alt="profile picture"/>
+		<div>
+			<p th:text="${user.username}"/>
+		</div>
+	</form>
+</body>
+
+</html>
