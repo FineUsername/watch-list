@@ -33,7 +33,7 @@ public class User implements UserDetails {
   @Column(nullable = false)
   private String password;
 
-  @Column(columnDefinition = "varchar(255) default \"default-picture.png\"")
+  @Column(columnDefinition = "varchar(255) default 'default-picture.png'")
   private String profilePicturePath;
 
   @Column(nullable = false)

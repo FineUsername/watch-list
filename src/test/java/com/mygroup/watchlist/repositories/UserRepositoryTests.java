@@ -33,6 +33,11 @@ public class UserRepositoryTests {
     user.setRole(Role.USER);
     entityManager.persist(user);
   }
+  
+  @Test
+  public void defaultProfilePicturePath() {
+    assertEquals(userRepository.findByUsername(USERNAME).get().getProfilePicturePath(), "default-picture.png");
+  }
 
   @Test
   public void existsByUsernameWhenNoneExist() {

@@ -8,8 +8,12 @@
 <body>
 	<p>Profile</p>
 	
-	<form th:object="${user}" th:with="profilePictureFolder='src\\main\\resources\\images\\user\\profile-pictures'">
-		<img th:src="@{${profilePictureFolder + '\\' + user.profilePicturePath}}" alt="profile picture"/>
+	<form th:with="user=${#authentication.getPrincipal()}">
+		<img th:src="@{${'images/user/profile-pictures/' + user.profilePicturePath}}" alt="profile picture"/>
+		<p th:text="${user.id}"/>
+		<p>Path</p>
+		<p th:text="@{${'images/user/profile-pictures/' + user.profilePicturePath}}"/>
+		<p>End of path</p>
 		<div>
 			<p th:text="${user.username}"/>
 		</div>
