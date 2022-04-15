@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<title th:text="${anime.title}" />
+</head>
+
+<body>
+	<h1 th:text="${anime.title}" />
+	<img th:src="@{${'../' + @animeService.getMainPictureFolder() + '/' + anime.mainPicturePath}}" alt="main picture" />
+	<p th:text="${@animeService.getMainPictureFolder() + '/' + anime.mainPicturePath}" />
+	<p th:text="${anime.description}" />
+	<div>
+		<!--TODO sec:authorize="hasAuthority('ADMIN')" -->
+		<form th:action="@{'/anime/' + ${anime.id}}" th:method="delete">
+			<input type="hidden" name="_method" value="delete" />
+			<button type="submit" >Delete</button>
+		</form>
+	</div>
+</body>
+
+</html>

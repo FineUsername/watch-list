@@ -1,6 +1,5 @@
 package com.mygroup.watchlist.entities;
 
-import java.util.Collection;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,14 +16,17 @@ public class Anime {
   @GeneratedValue
   private long id;
 
-  @Column
+  @Column(nullable = false, unique = true)
   private String title;
 
-  @Column
+  @Column(nullable = false)
   private String description;
 
-  @Column
-  private String picturePath;
+  @Column(nullable = false)
+  private String previewPicturePath;
+
+  @Column(nullable = false)
+  private String mainPicturePath;
 
   @ManyToMany(mappedBy = "animes")
   private Set<User> users;
@@ -53,12 +55,20 @@ public class Anime {
     this.description = description;
   }
 
-  public String getPicturePath() {
-    return picturePath;
+  public String getPreviewPicturePath() {
+    return previewPicturePath;
   }
 
-  public void setPicturePath(String picturePath) {
-    this.picturePath = picturePath;
+  public void setPreviewPicturePath(String previewPicturePath) {
+    this.previewPicturePath = previewPicturePath;
+  }
+
+  public String getMainPicturePath() {
+    return mainPicturePath;
+  }
+
+  public void setMainPicturePath(String mainPicturePath) {
+    this.mainPicturePath = mainPicturePath;
   }
 
   public Set<User> getUsers() {

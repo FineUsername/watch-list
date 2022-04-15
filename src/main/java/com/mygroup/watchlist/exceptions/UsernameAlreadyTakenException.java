@@ -12,4 +12,8 @@ public class UsernameAlreadyTakenException extends RuntimeException {
     super(String.format(MESSAGE, username), cause);
   }
 
+  public UsernameAlreadyTakenException(Throwable cause) {
+    super(cause);
+  }
+
 }

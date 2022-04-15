@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<title>Add new anime</title>
+</head>
+
+<body>
+	<h1>Add new anime</h1>
+	<form action="#" th:action="@{/anime/add}" th:object="${animeForm}" method="post" enctype="multipart/form-data">
+		<div>
+			<input type="text" th:field="*{title}" placeholder="Title">
+			<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+			</div>
+		</div>
+		<div>
+			<input type="text" th:field="*{description}" placeholder="Description">
+			<div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+			</div>
+		</div>
+		<div>
+			<label>Preview picture</label>
+			<input type="file" th:field="*{previewPicture}" accept="image/png, image/jpeg">
+			<div th:if="${#fields.hasErrors('previewPictureLoaded')}" th:errors="*{previewPictureLoaded}">
+			</div>
+		</div>
+		<div>
+			<label>Main picture</label>
+			<input type="file" th:field="*{mainPicture}" accept="image/png, image/jpeg">
+			<div th:if="${#fields.hasErrors('mainPictureLoaded')}" th:errors="*{mainPictureLoaded}">
+			</div>
+		</div>
+		<input type="submit" value="Add" />
+	</form>
+</body>
+
+</html>

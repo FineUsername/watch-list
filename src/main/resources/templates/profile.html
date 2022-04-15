@@ -6,17 +6,17 @@
 </head>
 
 <body>
-	<p>Profile</p>
-	
+	<h1>Profile</h1>
+	<a th:href="@{/profile/watchlist}">Watchlist</a>
 	<form th:with="user=${#authentication.getPrincipal()}">
-		<img th:src="@{${'images/user/profile-pictures/' + user.profilePicturePath}}" alt="profile picture"/>
-		<p th:text="${user.id}"/>
-		<p>Path</p>
-		<p th:text="@{${'images/user/profile-pictures/' + user.profilePicturePath}}"/>
-		<p>End of path</p>
+		<img th:src="@{${@userService.getProfilePicturesFolder() + '/' + user.profilePicturePath}}"
+			alt="profile picture" />
+		<p th:text="${@userService.getProfilePicturesFolder() + '/' + user.profilePicturePath}"/>
 		<div>
-			<p th:text="${user.username}"/>
+			<p th:text="${user.username}" />
 		</div>
+		<img th:src="@{${@animeService.getMainPictureFolder() + '/1650044696489.jpg'}}"
+			alt="profile picture" />
 	</form>
 </body>
 

@@ -6,7 +6,6 @@ import javax.validation.constraints.Size;
 
 public class RegistrationForm {
 
-
   @NotEmpty(message = "Name can not be empty")
   private String username;
 

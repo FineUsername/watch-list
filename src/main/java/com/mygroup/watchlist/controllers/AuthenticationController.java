@@ -46,7 +46,6 @@ public class AuthenticationController {
     }
     try {
       User user = userService.register(registrationForm);
-      model.addAttribute("user", user);
       return "redirect:/mainpage";
     } catch (UsernameAlreadyTakenException e) {
       bindingResult.rejectValue("username", "username",
