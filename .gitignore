@@ -1,4 +1,9 @@
 HELP.md
+frontend/
+node_modules/
+*.json
+webpack*
+types.d.ts
 target/
 mvnw
 mvnw.cmd
