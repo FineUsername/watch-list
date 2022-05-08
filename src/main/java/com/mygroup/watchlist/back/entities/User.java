@@ -12,8 +12,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +22,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @Table(name = "\"user\"")
 public class User implements UserDetails {
+
+  private static final String DEFAULT_PICTURE_NAME = "default-picture.jpg";
 
   @Id
   @GeneratedValue
@@ -36,17 +38,36 @@ public class User implements UserDetails {
   @Column(unique = true, nullable = false)
   private String email;
 
-  @Column(nullable = false)
-  private String profilePicturePath = "default-picture.jpg";
+  @Column(nullable = false, name = "picture_name")
+  private String pictureName = DEFAULT_PICTURE_NAME;
 
   @Column(nullable = false)
   @Enumerated(EnumType.ORDINAL)
-  private Role role;
+  private Role role = Role.USER;
 
-  @ManyToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "users_animes", joinColumns = @JoinColumn(name = "user_id"),
-      inverseJoinColumns = @JoinColumn(name = "anime_id"))
-  private Set<Anime> animes;
+  @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+  @JoinColumn(name = "verification_token_id", unique = true)
+  private VerificationToken verificationToken;
+
+  @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+  @JoinColumn(name = "reset_password_token_id", unique = true)
+  private ResetPasswordToken resetPasswordToken;
+
+  @OneToMany(mappedBy = "user",
+      cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+  private Set<UserAnimeRelation> userAnimeRelations;
+
+  public User() {}
+
+  public User(String username, String password, String email) {
+    this.username = username;
+    this.password = password;
+    this.email = email;
+  }
+
+  public static String getDefaultPictureName() {
+    return DEFAULT_PICTURE_NAME;
+  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -91,20 +112,36 @@ public class User implements UserDetails {
     this.email = email;
   }
 
-  public String getProfilePicturePath() {
-    return profilePicturePath;
+  public String getPictureName() {
+    return pictureName;
   }
 
-  public void setProfilePicturePath(String picturePath) {
-    this.profilePicturePath = picturePath;
+  public void setPictureName(String pictureName) {
+    this.pictureName = pictureName;
   }
 
-  public Set<Anime> getAnimes() {
-    return animes;
+  public Set<UserAnimeRelation> getUserAnimeRelations() {
+    return userAnimeRelations;
   }
 
-  public void setAnimes(Set<Anime> animes) {
-    this.animes = animes;
+  public void setUserAnimeRelations(Set<UserAnimeRelation> userAnimeRelations) {
+    this.userAnimeRelations = userAnimeRelations;
+  }
+
+  public VerificationToken getVerificationToken() {
+    return verificationToken;
+  }
+
+  public void setVerificationToken(VerificationToken token) {
+    this.verificationToken = token;
+  }
+
+  public ResetPasswordToken getResetPasswordToken() {
+    return resetPasswordToken;
+  }
+
+  public void setResetPasswordToken(ResetPasswordToken resetPasswordToken) {
+    this.resetPasswordToken = resetPasswordToken;
   }
 
   @Override
@@ -124,7 +161,7 @@ public class User implements UserDetails {
 
   @Override
   public boolean isEnabled() {
-    return true;
+    return verificationToken == null;
   }
 
 }

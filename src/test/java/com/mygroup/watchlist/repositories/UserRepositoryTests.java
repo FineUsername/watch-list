@@ -19,6 +19,7 @@ public class UserRepositoryTests {
 
   private static final String USERNAME = "username";
   private static final String PASSWORD = "password";
+  private static final String EMAIL = "e@ma.il";
   private User user = new User();
 
   @Autowired
@@ -29,15 +30,14 @@ public class UserRepositoryTests {
 
   @BeforeEach
   public void setup() {
-    user.setUsername(USERNAME);
-    user.setPassword(PASSWORD);
-    user.setRole(Role.USER);
+    user = new User(USERNAME, PASSWORD, EMAIL);
     entityManager.persist(user);
   }
-  
+
   @Test
   public void defaultProfilePicturePath() {
-    assertEquals(userRepository.findByUsername(USERNAME).get().getProfilePicturePath(), "default-picture.png");
+    assertEquals(userRepository.findByUsername(USERNAME).get().getPictureName(),
+        User.getDefaultPictureName());
   }
 
   @Test
@@ -51,6 +51,16 @@ public class UserRepositoryTests {
   }
 
   @Test
+  public void existsByEmailWhenNoneExist() {
+    assertFalse(userRepository.existsByEmail("gibberish"));
+  }
+
+  @Test
+  public void existsByEmailWhenEmailExists() {
+    assertTrue(userRepository.existsByEmail(EMAIL));
+  }
+
+  @Test
   public void findByUsernameWhenNoneExist() {
     assertTrue(userRepository.findByUsername("gibberish").isEmpty());
   }
@@ -60,6 +70,7 @@ public class UserRepositoryTests {
     User user = userRepository.findByUsername(USERNAME).orElseThrow();
     assertEquals(user.getUsername(), USERNAME);
     assertEquals(user.getPassword(), PASSWORD);
+    assertEquals(user.getEmail(), EMAIL);
     assertEquals(user.getAuthorities(),
         Collections.singleton(new SimpleGrantedAuthority(Role.USER.getPrefixedName())));
   }

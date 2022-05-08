@@ -1,10 +1,10 @@
 package com.mygroup.watchlist.front.components;
 
 import com.mygroup.watchlist.front.views.AbstractView;
-import com.mygroup.watchlist.front.views.AllAnimeView;
-import com.mygroup.watchlist.front.views.AddAnimeView;
-import com.mygroup.watchlist.front.views.ProfileView;
-import com.mygroup.watchlist.front.views.WatchlistView;
+import com.mygroup.watchlist.front.views.anime.add.AddAnimeView;
+import com.mygroup.watchlist.front.views.anime.browse.BrowseAnimeView;
+import com.mygroup.watchlist.front.views.main.MainView;
+import com.mygroup.watchlist.front.views.profile.ProfileView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -16,18 +16,18 @@ public class MyHeader extends Header {
 
   public MyHeader() {
     HorizontalLayout layout = new HorizontalLayout();
-    layout.add(setupLinkButton("Main page", null)); // TODO
-    layout.add(setupLinkButton("Browse anime", AllAnimeView.class));
-    layout.add(setupLinkButton("Watchlist", WatchlistView.class));
+    layout.add(setupLinkButton("Main page", MainView.class));
+    layout.add(setupLinkButton("Browse anime", BrowseAnimeView.class));
     layout.add(setupLinkButton("Add anime", AddAnimeView.class));
     layout.add(setupLinkButton("Profile", ProfileView.class));
+    layout.setClassName("full-header");
     add(layout);
     setWidthFull();
-    layout.setClassName("full-header");
   }
 
   private Button setupLinkButton(String title, Class<? extends AbstractView> view) {
     Button button = new Button(title);
+    button.setClassName("button");
     button.addClickListener(event -> UI.getCurrent().navigate(view));
     return button;
   }

@@ -1,44 +1,66 @@
 package com.mygroup.watchlist.back.repositories;
 
-import com.mygroup.watchlist.exceptions.RepositoryException;
+import com.mygroup.watchlist.back.config.ResourcesProperties;
+import com.mygroup.watchlist.exceptions.FileOperationException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class FileResourcesRepository {
 
-  private static final String RESOURCE_FOLDER = "src/main/resources/META-INF/resources";
+  private final ResourcesProperties resourcesProperties;
 
-  public String save(byte[] content, String fullLocation, String extension) {
+  @Autowired
+  public FileResourcesRepository(ResourcesProperties resourcesProperties) {
+    this.resourcesProperties = resourcesProperties;
+  }
+
+  public String save(byte[] content, Path locationInResources, String extension) {
     try {
-      String fileName = System.currentTimeMillis() + extension;
-      Path pathToSave = Paths.get(RESOURCE_FOLDER + '/' + fullLocation + '/' + fileName);
+      if ((content == null) || (locationInResources == null) || (extension == null)) {
+        throw new NullPointerException();
+      }
+      String fileName = getUniqueFilename(extension);
+      Path pathToSave = buildPathInResources(locationInResources, fileName);
       Files.createDirectories(pathToSave.getParent());
       Files.write(pathToSave, content);
       return fileName;
     } catch (Exception e) {
-      throw new RepositoryException(e);
+      throw new FileOperationException(e);
     }
   }
 
-  public void delete(String fullLocation) {
+  public void delete(Path locationInResources, String fileName) {
     try {
-      Files.delete(Paths.get(RESOURCE_FOLDER + '/' + fullLocation));
+      if ((locationInResources == null) || (fileName == null)) {
+        throw new NullPointerException();
+      }
+      Files.delete(buildPathInResources(locationInResources, fileName));
     } catch (Exception e) {
-      // TODO handle
-      throw new RepositoryException(e);
+      throw new FileOperationException(e);
     }
   }
 
-  public FileSystemResource find(String fullLocation) {
+  public InputStream read(Path locationInResources, String fileName) {
     try {
-      return new FileSystemResource(Paths.get(RESOURCE_FOLDER + '/' + fullLocation));
+      if ((locationInResources == null) || (fileName == null)) {
+        throw new NullPointerException();
+      }
+      return Files.newInputStream(buildPathInResources(locationInResources, fileName));
     } catch (Exception e) {
-      throw new RepositoryException(e);
+      throw new FileOperationException(e);
     }
+  }
+
+  private Path buildPathInResources(Path locationInResources, String fileName) {
+    return resourcesProperties.getFolder().resolve(locationInResources).resolve(fileName);
+  }
+
+  private static String getUniqueFilename(String extension) {
+    return System.currentTimeMillis() + extension;
   }
 
 }

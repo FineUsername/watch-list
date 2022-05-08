@@ -16,5 +16,4 @@ public class TitleAlreadyPresentException extends RuntimeException {
     super(cause);
   }
 
-
 }

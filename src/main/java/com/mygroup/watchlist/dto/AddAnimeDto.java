@@ -1,41 +1,21 @@
 package com.mygroup.watchlist.dto;
 
-public class AddAnimeDto {
+public class AddAnimeDto extends AnimeStringDataDto {
 
-  private String title;
-  private String description;
-  private byte[] previewPicture;
-  private byte[] mainPicture;
+  private byte[] picture;
 
-  public String getTitle() {
-    return title;
+  public AddAnimeDto() {}
+
+  public AddAnimeDto(String title, String description, byte[] picture) {
+    super(title, description);
+    this.picture = picture;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public byte[] getPicture() {
+    return picture;
   }
 
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public byte[] getPreviewPicture() {
-    return previewPicture;
-  }
-
-  public void setPreviewPicture(byte[] previewPicture) {
-    this.previewPicture = previewPicture;
-  }
-
-  public byte[] getMainPicture() {
-    return mainPicture;
-  }
-
-  public void setMainPicture(byte[] mainPicture) {
-    this.mainPicture = mainPicture;
+  public void setPicture(byte[] picture) {
+    this.picture = picture;
   }
 }

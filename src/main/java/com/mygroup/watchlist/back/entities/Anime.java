@@ -1,15 +1,16 @@
 package com.mygroup.watchlist.back.entities;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "anime")
 public class Anime {
 
   @Id
@@ -22,14 +23,20 @@ public class Anime {
   @Column(nullable = false)
   private String description;
 
-  @Column(nullable = false)
-  private String previewPicturePath;
+  @Column(nullable = false, name = "picture_name")
+  private String pictureName;
 
-  @Column(nullable = false)
-  private String mainPicturePath;
+  @OneToMany(mappedBy = "anime",
+      cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+  private Set<UserAnimeRelation> userAnimeRelations;
 
-  @ManyToMany(mappedBy = "animes")
-  private Set<User> users;
+  public Anime() {}
+
+  public Anime(String title, String description, String pictureName) {
+    this.title = title;
+    this.description = description;
+    this.pictureName = pictureName;
+  }
 
   public long getId() {
     return id;
@@ -55,28 +62,20 @@ public class Anime {
     this.description = description;
   }
 
-  public String getPreviewPicturePath() {
-    return previewPicturePath;
+  public String getPictureName() {
+    return pictureName;
   }
 
-  public void setPreviewPicturePath(String previewPicturePath) {
-    this.previewPicturePath = previewPicturePath;
+  public void setPictureName(String pictureName) {
+    this.pictureName = pictureName;
   }
 
-  public String getMainPicturePath() {
-    return mainPicturePath;
+  public Set<UserAnimeRelation> getUserAnimeRelations() {
+    return userAnimeRelations;
   }
 
-  public void setMainPicturePath(String mainPicturePath) {
-    this.mainPicturePath = mainPicturePath;
-  }
-
-  public Set<User> getUsers() {
-    return users;
-  }
-
-  public void setUsers(Set<User> users) {
-    this.users = users;
+  public void setUserAnimeRelations(Set<UserAnimeRelation> userAnimeRelations) {
+    this.userAnimeRelations = userAnimeRelations;
   }
 
 }
