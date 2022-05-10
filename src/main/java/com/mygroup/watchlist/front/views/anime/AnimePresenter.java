@@ -5,11 +5,10 @@ import com.mygroup.watchlist.back.security.SecurityUtils;
 import com.mygroup.watchlist.back.services.AnimeService;
 import com.mygroup.watchlist.back.services.SecurityService;
 import com.mygroup.watchlist.back.services.UserAnimeService;
+import com.mygroup.watchlist.dto.AnimePreviewDto;
 import com.mygroup.watchlist.dto.AnimeViewDto;
 import com.mygroup.watchlist.exceptions.UnauthenticatedException;
-import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.spring.annotation.SpringComponent;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -38,14 +37,6 @@ public class AnimePresenter {
 
   public AnimeViewDto getCurrentAnime(long id) {
     return animeService.getAnimeViewById(id);
-  }
-
-  public boolean isAdminAuthenticated() {
-    try {
-      return SecurityUtils.isAdminAuthenticated();
-    } catch (UnauthenticatedException e) {
-      return false;
-    }
   }
 
   public boolean isUserAuthenticated() {

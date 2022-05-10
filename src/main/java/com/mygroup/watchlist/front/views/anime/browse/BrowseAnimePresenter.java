@@ -8,7 +8,7 @@ import org.springframework.data.domain.Slice;
 import com.mygroup.watchlist.back.entities.UserAnimeRelation.WatchStatus;
 import com.mygroup.watchlist.back.security.SecurityUtils;
 import com.mygroup.watchlist.back.services.AnimeService;
-import com.mygroup.watchlist.dto.AnimeViewDto;
+import com.mygroup.watchlist.dto.AnimePreviewDto;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +22,7 @@ public class BrowseAnimePresenter {
 
   private final AnimeService animeService;
   private Pageable currentPage;
-  private Slice<AnimeViewDto> currentSlice;
+  private Slice<AnimePreviewDto> currentSlice;
   private Set<WatchStatus> displayedStatuses;
 
   @Autowired
@@ -44,11 +44,11 @@ public class BrowseAnimePresenter {
     return MAX_PREVIEWS_PER_PAGE;
   }
 
-  public List<AnimeViewDto> getAllPreviews() {
+  public List<AnimePreviewDto> getAllPreviews() {
     return searchByTitle("");
   }
 
-  public List<AnimeViewDto> searchByTitle(String titlePart) {
+  public List<AnimePreviewDto> searchByTitle(String titlePart) {
     if (SecurityUtils.isUserAuthenticated()) {
       if (displayedStatuses.isEmpty()) {
         currentSlice = animeService.searchByTitleForCurrentUser(titlePart, currentPage);

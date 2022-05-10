@@ -2,15 +2,15 @@ package com.mygroup.watchlist.dto;
 
 import java.io.ByteArrayInputStream;
 
-public class AnimeViewDto extends AnimeStringDataDto {
+public class AnimePreviewDto extends AnimeStringDataDto {
 
   private long id;
   private ByteArrayInputStream picture;
   private String statusRepresentation;
 
-  public AnimeViewDto() {}
+  public AnimePreviewDto() {}
 
-  public AnimeViewDto(long id, String title, String description, ByteArrayInputStream picture,
+  public AnimePreviewDto(long id, String title, String description, ByteArrayInputStream picture,
       String statusRepresentation) {
     super(title, description);
     this.id = id;

@@ -7,6 +7,7 @@ import com.mygroup.watchlist.back.entities.UserAnimeRelation;
 import com.mygroup.watchlist.back.entities.UserAnimeRelation.WatchStatus;
 import com.mygroup.watchlist.back.services.AnimeService;
 import com.mygroup.watchlist.dto.AddAnimeDto;
+import com.mygroup.watchlist.dto.AnimePreviewDto;
 import com.mygroup.watchlist.dto.AnimeViewDto;
 import com.mygroup.watchlist.exceptions.TitleAlreadyPresentException;
 import com.mygroup.watchlist.exceptions.UnauthenticatedException;
@@ -96,7 +97,6 @@ public class AnimeServiceIntegrationTests {
     AnimeViewDto dto = animeService.getAnimeViewById(berserk.getId());
     assertEquals(BERSERK_TITLE, dto.getTitle());
     assertEquals(DESCRIPTION, dto.getDescription());
-    assertTrue(dto.getStatusRepresentation().isEmpty());
   }
 
   @Test
@@ -110,7 +110,7 @@ public class AnimeServiceIntegrationTests {
   public void searchByTitleWhenNoneExist() {
     int size = 2;
     Pageable page = Pageable.ofSize(size);
-    List<AnimeViewDto> dtos = animeService.searchByTitle("gibberish", page).getContent();
+    List<AnimePreviewDto> dtos = animeService.searchByTitle("gibberish", page).getContent();
     assertTrue(dtos.isEmpty());
   }
 
@@ -118,7 +118,7 @@ public class AnimeServiceIntegrationTests {
   public void searchByTitleCommonCase() {
     int size = 2;
     Pageable page = Pageable.ofSize(size);
-    List<AnimeViewDto> dtos = animeService.searchByTitle("e", page).getContent();
+    List<AnimePreviewDto> dtos = animeService.searchByTitle("e", page).getContent();
     assertEquals(size, dtos.size());
     assertEquals(BERSERK_TITLE, dtos.get(0).getTitle());
     assertEquals(COWBOY_BEBOP_TITLE, dtos.get(1).getTitle());
@@ -146,7 +146,7 @@ public class AnimeServiceIntegrationTests {
         new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword()));
     int size = 2;
     Pageable page = Pageable.ofSize(size);
-    List<AnimeViewDto> dtos =
+    List<AnimePreviewDto> dtos =
         animeService.searchByTitleForCurrentUser("gibberish", page).getContent();
     assertTrue(dtos.isEmpty());
   }
@@ -157,7 +157,7 @@ public class AnimeServiceIntegrationTests {
         new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword()));
     int size = 2;
     Pageable page = Pageable.ofSize(size);
-    List<AnimeViewDto> dtos = animeService.searchByTitleForCurrentUser("e", page).getContent();
+    List<AnimePreviewDto> dtos = animeService.searchByTitleForCurrentUser("e", page).getContent();
     assertEquals(size, dtos.size());
     assertEquals(BERSERK_TITLE, dtos.get(0).getTitle());
     assertEquals(COWBOY_BEBOP_TITLE, dtos.get(1).getTitle());
@@ -172,7 +172,7 @@ public class AnimeServiceIntegrationTests {
         new UsernamePasswordAuthenticationToken(user2.getUsername(), user2.getPassword()));
     int size = 2;
     Pageable page = Pageable.ofSize(size);
-    List<AnimeViewDto> dtos = animeService.searchByTitleForCurrentUser("e", page).getContent();
+    List<AnimePreviewDto> dtos = animeService.searchByTitleForCurrentUser("e", page).getContent();
     assertEquals(size, dtos.size());
     assertEquals(BERSERK_TITLE, dtos.get(0).getTitle());
     assertEquals(COWBOY_BEBOP_TITLE, dtos.get(1).getTitle());
@@ -204,7 +204,7 @@ public class AnimeServiceIntegrationTests {
         new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword()));
     int size = 2;
     Pageable page = Pageable.ofSize(size);
-    List<AnimeViewDto> dtos =
+    List<AnimePreviewDto> dtos =
         animeService.searchByTitleForCurrentUserWithStatuses("e", Set.of(WatchStatus.PLANNED), page)
             .getContent();
     assertEquals(1, dtos.size());
@@ -219,7 +219,7 @@ public class AnimeServiceIntegrationTests {
         new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword()));
     int size = 2;
     Pageable page = Pageable.ofSize(size);
-    List<AnimeViewDto> dtos =
+    List<AnimePreviewDto> dtos =
         animeService.searchByTitleForCurrentUserWithStatuses("e", Set.of(WatchStatus.STOPPED), page)
             .getContent();
     assertTrue(dtos.isEmpty());

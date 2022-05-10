@@ -2,7 +2,7 @@ package com.mygroup.watchlist.front.views.anime.browse;
 
 import com.mygroup.watchlist.back.entities.UserAnimeRelation.WatchStatus;
 import com.mygroup.watchlist.back.security.SecurityUtils;
-import com.mygroup.watchlist.dto.AnimeViewDto;
+import com.mygroup.watchlist.dto.AnimePreviewDto;
 import com.mygroup.watchlist.front.components.AnimePreviewLayout;
 import com.mygroup.watchlist.front.components.MyFooter;
 import com.mygroup.watchlist.front.components.MyHeader;
@@ -113,7 +113,7 @@ public class BrowseAnimeView extends AbstractView {
     previousPageButton.setEnabled(presenter.hasPreviousPage());
   }
 
-  private void updateAnimeList(List<AnimeViewDto> previews) {
+  private void updateAnimeList(List<AnimePreviewDto> previews) {
     System.out.println(previews.size());
     disableNavigationButtonsIfNeeded();
     Iterator<AnimePreviewLayout> iter = previewLayoutsList.iterator();
