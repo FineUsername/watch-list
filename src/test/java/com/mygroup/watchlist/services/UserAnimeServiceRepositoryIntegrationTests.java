@@ -20,7 +20,8 @@ import org.springframework.context.annotation.Import;
 public class UserAnimeServiceRepositoryIntegrationTests {
 
   private User user;
-  private Anime anime;
+  private Anime anime1;
+  private Anime anime2;
   private UserAnimeRelation relation;
 
   @Autowired
@@ -32,9 +33,11 @@ public class UserAnimeServiceRepositoryIntegrationTests {
   @BeforeEach
   public void setup() {
     user = new User("username", "password", "email");
-    anime = new Anime("title", "description", new byte[1]);
-    relation = new UserAnimeRelation(user, anime, WatchStatus.WATCHED);
+    anime1 = new Anime("title", "description", new byte[1]);
+    anime2 = new Anime("another title", "description", new byte[1]);
+    relation = new UserAnimeRelation(user, anime1, WatchStatus.WATCHED);
     entityManager.persist(relation);
+    entityManager.persist(anime2);
   }
 
   @Test
@@ -44,18 +47,18 @@ public class UserAnimeServiceRepositoryIntegrationTests {
 
   @Test
   public void getStatusCommonCase() {
-    assertEquals(relation.getStatus(), service.getStatus(user.getId(), anime.getId()));
+    assertEquals(relation.getStatus(), service.getStatus(user.getId(), anime1.getId()));
   }
 
   @Test
   public void updateStatusWhenNoneExist() {
-    // Test that no exceptions are thrown
-    service.updateStatus(0L, 0L, WatchStatus.PLANNED);
+    service.updateStatus(user.getId(), anime2.getId(), WatchStatus.PLANNED);
+    assertEquals(WatchStatus.PLANNED, service.getStatus(user.getId(), anime2.getId()));
   }
 
   @Test
   public void updateStatusCommonCase() {
-    service.updateStatus(user.getId(), anime.getId(), WatchStatus.PLANNED);
+    service.updateStatus(user.getId(), anime1.getId(), WatchStatus.PLANNED);
     assertEquals(WatchStatus.PLANNED,
         entityManager.find(UserAnimeRelation.class, relation.getId()).getStatus());
   }

@@ -93,6 +93,7 @@ public class BrowseAnimeView extends AbstractView {
   private VerticalLayout setupCheckboxesLayout() {
     H3 filterByStatus = new H3("Filter by status");
     filterByStatus.setClassName("text");
+    filterByStatus.addClassName("filter-header");
     VerticalLayout checkboxesLayout = new VerticalLayout(filterByStatus);
     checkboxesLayout.getStyle().clear();
     checkboxesLayout.setClassName("checkboxes");
@@ -117,9 +118,7 @@ public class BrowseAnimeView extends AbstractView {
     Iterator<AnimePreviewLayout> iter = previewLayoutsList.iterator();
     previews.forEach(anime -> {
       AnimePreviewLayout layout = iter.next();
-      layout.setVisible(false);
       layout.changeAnime(anime);
-      layout.setVisible(true);
     });
     iter.forEachRemaining(layout -> layout.setVisible(false));
   }
