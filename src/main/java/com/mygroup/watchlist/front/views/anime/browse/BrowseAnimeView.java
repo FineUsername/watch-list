@@ -114,11 +114,13 @@ public class BrowseAnimeView extends AbstractView {
   }
 
   private void updateAnimeList(List<AnimeViewDto> previews) {
+    System.out.println(previews.size());
     disableNavigationButtonsIfNeeded();
     Iterator<AnimePreviewLayout> iter = previewLayoutsList.iterator();
     previews.forEach(anime -> {
       AnimePreviewLayout layout = iter.next();
       layout.changeAnime(anime);
+      layout.setVisible(true);
     });
     iter.forEachRemaining(layout -> layout.setVisible(false));
   }

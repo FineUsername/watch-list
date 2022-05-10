@@ -1,16 +1,16 @@
 package com.mygroup.watchlist.dto;
 
-import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 
 public class AnimeViewDto extends AnimeStringDataDto {
 
   private long id;
-  private byte[] picture;
+  private ByteArrayInputStream picture;
   private String statusRepresentation;
 
   public AnimeViewDto() {}
 
-  public AnimeViewDto(long id, String title, String description, byte[] picture,
+  public AnimeViewDto(long id, String title, String description, ByteArrayInputStream picture,
       String statusRepresentation) {
     super(title, description);
     this.id = id;
@@ -26,11 +26,11 @@ public class AnimeViewDto extends AnimeStringDataDto {
     this.id = id;
   }
 
-  public byte[] getPicture() {
+  public ByteArrayInputStream getPicture() {
     return picture;
   }
 
-  public void setPicture(byte[] picture) {
+  public void setPicture(ByteArrayInputStream picture) {
     this.picture = picture;
   }
 

@@ -63,8 +63,8 @@ public class AnimeView extends AbstractView implements HasDynamicTitle, HasUrlPa
   }
 
   private VerticalLayout setupForm() {
-    Image picture = new Image(new StreamResource(UUID.randomUUID().toString(),
-        () -> new ByteArrayInputStream(dto.getPicture())), "main picture");
+    Image picture = new Image(
+        new StreamResource(UUID.randomUUID().toString(), () -> dto.getPicture()), "main picture");
     picture.setClassName("anime-picture");
     H2 title = new H2(dto.getTitle());
     title.setClassName("text");

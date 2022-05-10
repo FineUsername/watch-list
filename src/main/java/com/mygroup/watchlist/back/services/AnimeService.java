@@ -8,6 +8,7 @@ import com.mygroup.watchlist.dto.AddAnimeDto;
 import com.mygroup.watchlist.dto.AnimeViewDto;
 import com.mygroup.watchlist.dto.AnimeWithStatusDto;
 import com.mygroup.watchlist.exceptions.TitleAlreadyPresentException;
+import java.io.ByteArrayInputStream;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,7 +139,7 @@ public class AnimeService {
 
   private AnimeViewDto convertWithDefaultStatus(Anime anime) {
     return new AnimeViewDto(anime.getId(), anime.getTitle(), anime.getDescription(),
-        anime.getPicture(), "");
+        new ByteArrayInputStream(anime.getPicture()), "");
   }
 
   private AnimeViewDto convert(AnimeWithStatusDto dto) {
@@ -146,8 +147,8 @@ public class AnimeService {
     if (dto.getStatus() != null) {
       statusRepresentation = dto.getStatus().getStringRepresentation();
     }
-    return new AnimeViewDto(dto.getId(), dto.getTitle(), dto.getDescription(), dto.getPicture(),
-        statusRepresentation);
+    return new AnimeViewDto(dto.getId(), dto.getTitle(), dto.getDescription(),
+        new ByteArrayInputStream(dto.getPicture()), statusRepresentation);
   }
 
 }

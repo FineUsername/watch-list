@@ -9,7 +9,6 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.StreamResource;
-import java.io.ByteArrayInputStream;
 
 public class AnimePreviewLayout extends HorizontalLayout {
 
@@ -35,7 +34,7 @@ public class AnimePreviewLayout extends HorizontalLayout {
   }
 
   private void fillLayout() {
-    previewPicture.setSrc(new StreamResource("", () -> new ByteArrayInputStream(dto.getPicture())));
+    previewPicture.setSrc(new StreamResource("", () -> dto.getPicture()));
     title.setText(dto.getTitle());
     title.setClassName("text");
     title.addClickListener(
