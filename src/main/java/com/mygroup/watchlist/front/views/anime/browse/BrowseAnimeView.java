@@ -117,6 +117,7 @@ public class BrowseAnimeView extends AbstractView {
     Iterator<AnimePreviewLayout> iter = previewLayoutsList.iterator();
     previews.forEach(anime -> {
       AnimePreviewLayout layout = iter.next();
+      layout.setVisible(false);
       layout.changeAnime(anime);
       layout.setVisible(true);
     });

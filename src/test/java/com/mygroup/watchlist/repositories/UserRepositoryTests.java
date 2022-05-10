@@ -35,12 +35,6 @@ public class UserRepositoryTests {
   }
 
   @Test
-  public void defaultProfilePicturePath() {
-    assertEquals(userRepository.findByUsername(USERNAME).get().getPictureName(),
-        User.getDefaultPictureName());
-  }
-
-  @Test
   public void existsByUsernameWhenNoneExist() {
     assertFalse(userRepository.existsByUsername("gibberish"));
   }

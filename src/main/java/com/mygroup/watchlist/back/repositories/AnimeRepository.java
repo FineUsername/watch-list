@@ -21,12 +21,12 @@ public interface AnimeRepository extends JpaRepository<Anime, Long> {
   @Query("SELECT a FROM Anime a WHERE UPPER(a.title) LIKE UPPER(CONCAT('%', ?1, '%')) ORDER BY a.title ASC")
   Slice<Anime> findByTitlePart(String titlePart, Pageable page);
 
-  @Query("SELECT new com.mygroup.watchlist.dto.AnimeWithStatusDto(a.id, a.title, a.description, a.pictureName, uar.status) "
+  @Query("SELECT new com.mygroup.watchlist.dto.AnimeWithStatusDto(a.id, a.title, a.description, a.picture, uar.status) "
       + "FROM Anime a LEFT JOIN a.userAnimeRelations uar ON uar.user.id = ?2 AND uar.anime.id = a.id "
       + "WHERE UPPER(a.title) LIKE UPPER(CONCAT('%', ?1, '%')) ORDER BY a.title ASC")
   Slice<AnimeWithStatusDto> findByTitlePartForUser(String titlePart, long userId, Pageable page);
 
-  @Query("SELECT new com.mygroup.watchlist.dto.AnimeWithStatusDto(a.id, a.title, a.description, a.pictureName, uar.status) "
+  @Query("SELECT new com.mygroup.watchlist.dto.AnimeWithStatusDto(a.id, a.title, a.description, a.picture, uar.status) "
       + "FROM Anime a LEFT JOIN a.userAnimeRelations uar ON uar.user.id = ?2 AND uar.anime.id = a.id "
       + "WHERE UPPER(a.title) LIKE UPPER(CONCAT('%', ?1, '%')) AND uar.status IN ?3 ORDER BY a.title ASC")
   Slice<AnimeWithStatusDto> findByTitlePartForUserWithStatuses(String titlePart, long userId,

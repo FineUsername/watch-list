@@ -28,8 +28,8 @@ public class UserAnimeRepositoryTests {
 
   @BeforeEach
   public void setup() {
-    user = new User("a", "b", "c");
-    anime = new Anime("title", "description", "picname");
+    user = new User("username", "password", "email");
+    anime = new Anime("title", "description", new byte[1]);
     userAnimeRelation = new UserAnimeRelation(user, anime, WatchStatus.PLANNED);
     entityManager.persist(userAnimeRelation);
   }

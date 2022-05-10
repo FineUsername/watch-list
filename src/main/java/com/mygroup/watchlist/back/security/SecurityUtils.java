@@ -9,8 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class SecurityUtils {
 
   public static boolean isAdminAuthenticated() {
-    return getCurrentAuthentication().getAuthorities()
-        .contains(new SimpleGrantedAuthority(Role.ADMIN.getPrefixedName()));
+    try {
+      return getCurrentAuthentication().getAuthorities()
+          .contains(new SimpleGrantedAuthority(Role.ADMIN.getPrefixedName()));
+    } catch (UnauthenticatedException e) {
+      return false;
+    }
   }
 
   public static String getCurrentlyAuthenticatedUsername() {

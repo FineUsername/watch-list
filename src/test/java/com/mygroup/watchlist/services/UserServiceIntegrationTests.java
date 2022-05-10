@@ -2,18 +2,13 @@ package com.mygroup.watchlist.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import com.mygroup.watchlist.back.entities.ResetPasswordToken;
 import com.mygroup.watchlist.back.entities.User;
-import com.mygroup.watchlist.back.repositories.FileResourcesRepository;
 import com.mygroup.watchlist.back.services.UserService;
 import com.mygroup.watchlist.dto.ResetPasswordDto;
 import com.mygroup.watchlist.dto.UsernamePasswordEmailDto;
-import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,9 +37,6 @@ public class UserServiceIntegrationTests {
 
   @MockBean
   private JavaMailSender mailSender;
-
-  @MockBean
-  private FileResourcesRepository fileResourcesRepository;
 
   @Autowired
   private UserService userService;
@@ -98,17 +90,6 @@ public class UserServiceIntegrationTests {
   }
 
   @Test
-  public void getPictureStreamNullArg() {
-    assertThrows(IllegalArgumentException.class, () -> userService.getPictureStream(null));
-  }
-
-  @Test
-  public void getPictureStreamCommonCase() {
-    userService.getPictureStream(user);
-    verify(fileResourcesRepository).read(any(Path.class), eq(user.getPictureName()));
-  }
-
-  @Test
   public void updatePictureNullUser() {
     assertThrows(IllegalArgumentException.class,
         () -> userService.updatePicture(null, new byte[123]));
@@ -127,13 +108,9 @@ public class UserServiceIntegrationTests {
 
   @Test
   public void updatePictureCommonCase() {
-    assertEquals(User.getDefaultPictureName(), user.getPictureName());
-    String newPicName = "newPicName";
-    when(fileResourcesRepository.save(any(byte[].class), any(Path.class), anyString()))
-        .thenReturn(newPicName);
-    userService.updatePicture(user, new byte[1]);
-    verify(fileResourcesRepository, times(0)).delete(any(Path.class), anyString());
-    assertEquals(newPicName, user.getPictureName());
+    byte[] newPic = {1, 2, 3};
+    user = userService.updatePicture(user, newPic);
+    assertTrue(Arrays.equals(newPic, user.getPicture()));
   }
 
   @Test

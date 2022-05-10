@@ -23,8 +23,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "\"user\"")
 public class User implements UserDetails {
 
-  private static final String DEFAULT_PICTURE_NAME = "default-picture.jpg";
-
   @Id
   @GeneratedValue
   private long id;
@@ -38,8 +36,8 @@ public class User implements UserDetails {
   @Column(unique = true, nullable = false)
   private String email;
 
-  @Column(nullable = false, name = "picture_name")
-  private String pictureName = DEFAULT_PICTURE_NAME;
+  @Column(name = "picture")
+  private byte[] picture;
 
   @Column(nullable = false)
   @Enumerated(EnumType.ORDINAL)
@@ -65,8 +63,11 @@ public class User implements UserDetails {
     this.email = email;
   }
 
-  public static String getDefaultPictureName() {
-    return DEFAULT_PICTURE_NAME;
+  public User(String username, String password, String email, byte[] picture) {
+    this.username = username;
+    this.password = password;
+    this.email = email;
+    this.picture = picture;
   }
 
   @Override
@@ -112,12 +113,12 @@ public class User implements UserDetails {
     this.email = email;
   }
 
-  public String getPictureName() {
-    return pictureName;
+  public byte[] getPicture() {
+    return picture;
   }
 
-  public void setPictureName(String pictureName) {
-    this.pictureName = pictureName;
+  public void setPicture(byte[] picture) {
+    this.picture = picture;
   }
 
   public Set<UserAnimeRelation> getUserAnimeRelations() {

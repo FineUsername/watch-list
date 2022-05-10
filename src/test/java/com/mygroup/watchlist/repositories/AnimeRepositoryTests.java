@@ -26,7 +26,6 @@ public class AnimeRepositoryTests {
   private static final String DESCRIPTION = "Description does not matter for now,"
       + "because currently we don't have any operations that use it directly,"
       + "so for simplicity all test entities will use this sufficiently long description.";
-  private static final String PICTURE_NAME = "Same logic as description";
   private static final String BERSERK_TITLE = "Berserk";
   private static final String DEATH_NOTE_TITLE = "Death note";
   private static final String COWBOY_BEBOP_TITLE = "Cowboy Bebop";
@@ -59,12 +58,11 @@ public class AnimeRepositoryTests {
   }
 
   private static Anime createAnime(String title) {
-    return new Anime(title, DESCRIPTION, PICTURE_NAME);
+    return new Anime(title, DESCRIPTION, new byte[1]);
   }
 
   private static User createRandomUser() {
-    User user = new User(UUID.randomUUID().toString(), "pass", UUID.randomUUID().toString());
-    return user;
+    return new User(UUID.randomUUID().toString(), "pass", UUID.randomUUID().toString());
   }
 
   @Test
@@ -123,7 +121,6 @@ public class AnimeRepositoryTests {
     assertEquals(pageSize, animes.size());
     assertEquals(BERSERK_TITLE, animes.get(0).getTitle());
     assertEquals(DESCRIPTION, animes.get(0).getDescription());
-    assertEquals(PICTURE_NAME, animes.get(0).getPictureName());
     assertEquals(WatchStatus.PLANNED, animes.get(0).getStatus());
     page = page.next();
     animes = animeRepository.findByTitlePartForUser("e", user1.getId(), page).toList();
@@ -148,7 +145,6 @@ public class AnimeRepositoryTests {
     assertEquals(pageSize, animes.size());
     assertEquals(DEATH_NOTE_TITLE, animes.get(0).getTitle());
     assertEquals(DESCRIPTION, animes.get(0).getDescription());
-    assertEquals(PICTURE_NAME, animes.get(0).getPictureName());
     assertEquals(WatchStatus.WATCHED, animes.get(0).getStatus());
     page = page.next();
     animes = animeRepository.findByTitlePartForUserWithStatuses("e", user1.getId(), statuses, page)

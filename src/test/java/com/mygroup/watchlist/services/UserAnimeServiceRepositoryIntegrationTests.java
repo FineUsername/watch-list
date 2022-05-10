@@ -32,7 +32,7 @@ public class UserAnimeServiceRepositoryIntegrationTests {
   @BeforeEach
   public void setup() {
     user = new User("username", "password", "email");
-    anime = new Anime("title", "description", "picname");
+    anime = new Anime("title", "description", new byte[1]);
     relation = new UserAnimeRelation(user, anime, WatchStatus.WATCHED);
     entityManager.persist(relation);
   }

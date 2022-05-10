@@ -5,12 +5,12 @@ import java.io.InputStream;
 public class AnimeViewDto extends AnimeStringDataDto {
 
   private long id;
-  private InputStream picture;
+  private byte[] picture;
   private String statusRepresentation;
 
   public AnimeViewDto() {}
 
-  public AnimeViewDto(long id, String title, String description, InputStream picture,
+  public AnimeViewDto(long id, String title, String description, byte[] picture,
       String statusRepresentation) {
     super(title, description);
     this.id = id;
@@ -26,11 +26,11 @@ public class AnimeViewDto extends AnimeStringDataDto {
     this.id = id;
   }
 
-  public InputStream getPicture() {
+  public byte[] getPicture() {
     return picture;
   }
 
-  public void setPicture(InputStream picture) {
+  public void setPicture(byte[] picture) {
     this.picture = picture;
   }
 

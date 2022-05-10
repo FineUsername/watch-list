@@ -1,16 +1,13 @@
 package com.mygroup.watchlist.back.services;
 
-import com.mygroup.watchlist.back.config.PicturesProperties;
 import com.mygroup.watchlist.back.entities.Anime;
 import com.mygroup.watchlist.back.entities.User;
 import com.mygroup.watchlist.back.entities.UserAnimeRelation.WatchStatus;
 import com.mygroup.watchlist.back.repositories.AnimeRepository;
-import com.mygroup.watchlist.back.repositories.FileResourcesRepository;
 import com.mygroup.watchlist.dto.AddAnimeDto;
 import com.mygroup.watchlist.dto.AnimeViewDto;
 import com.mygroup.watchlist.dto.AnimeWithStatusDto;
 import com.mygroup.watchlist.exceptions.TitleAlreadyPresentException;
-import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +15,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
-@Service("animeService")
+@Service
 public class AnimeService {
 
   private final AnimeRepository animeRepository;
-  private final FileResourcesRepository fileResourcesRepository;
   private final SecurityService securityService;
-  private final PicturesProperties picturesProperties;
 
   @Autowired
-  public AnimeService(AnimeRepository animeRepository,
-      FileResourcesRepository fileResourcesRepository, SecurityService securityService,
-      PicturesProperties picturesProperties) {
+  public AnimeService(AnimeRepository animeRepository, SecurityService securityService) {
     this.animeRepository = animeRepository;
-    this.fileResourcesRepository = fileResourcesRepository;
     this.securityService = securityService;
-    this.picturesProperties = picturesProperties;
   }
 
   /**
@@ -55,8 +46,7 @@ public class AnimeService {
     Anime anime = new Anime();
     anime.setTitle(dto.getTitle());
     anime.setDescription(dto.getDescription());
-    anime.setPictureName(fileResourcesRepository.save(dto.getPicture(),
-        picturesProperties.getAnimeFolder(), picturesProperties.getExtension()));
+    anime.setPicture(dto.getPicture());
     return animeRepository.save(anime);
   }
 
@@ -147,22 +137,17 @@ public class AnimeService {
   }
 
   private AnimeViewDto convertWithDefaultStatus(Anime anime) {
-    InputStream pictureStream = getPictureStream(anime.getPictureName());
-    return new AnimeViewDto(anime.getId(), anime.getTitle(), anime.getDescription(), pictureStream,
-        "");
+    return new AnimeViewDto(anime.getId(), anime.getTitle(), anime.getDescription(),
+        anime.getPicture(), "");
   }
 
   private AnimeViewDto convert(AnimeWithStatusDto dto) {
-    InputStream pictureStream = getPictureStream(dto.getPictureName());
     String statusRepresentation = "";
     if (dto.getStatus() != null) {
       statusRepresentation = dto.getStatus().getStringRepresentation();
     }
-    return new AnimeViewDto(dto.getId(), dto.getTitle(), dto.getDescription(), pictureStream,
+    return new AnimeViewDto(dto.getId(), dto.getTitle(), dto.getDescription(), dto.getPicture(),
         statusRepresentation);
   }
 
-  private InputStream getPictureStream(String animePictureName) {
-    return fileResourcesRepository.read(picturesProperties.getAnimeFolder(), animePictureName);
-  }
 }

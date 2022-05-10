@@ -5,16 +5,16 @@ import com.mygroup.watchlist.back.entities.UserAnimeRelation.WatchStatus;
 public class AnimeWithStatusDto extends AnimeStringDataDto {
 
   private long id;
-  private String pictureName;
+  private byte[] picture;
   private WatchStatus status;
 
   public AnimeWithStatusDto() {}
 
-  public AnimeWithStatusDto(long id, String title, String description, String pictureName,
+  public AnimeWithStatusDto(long id, String title, String description, byte[] picture,
       WatchStatus status) {
     super(title, description);
     this.id = id;
-    this.pictureName = pictureName;
+    this.picture = picture;
     this.status = status;
   }
 
@@ -26,12 +26,12 @@ public class AnimeWithStatusDto extends AnimeStringDataDto {
     this.id = id;
   }
 
-  public String getPictureName() {
-    return pictureName;
+  public byte[] getPicture() {
+    return picture;
   }
 
-  public void setPictureName(String pictureName) {
-    this.pictureName = pictureName;
+  public void setPicture(byte[] picture) {
+    this.picture = picture;
   }
 
   public WatchStatus getStatus() {

@@ -1,21 +1,15 @@
 package com.mygroup.watchlist.services;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import com.mygroup.watchlist.back.entities.Anime;
 import com.mygroup.watchlist.back.entities.User;
 import com.mygroup.watchlist.back.entities.UserAnimeRelation;
 import com.mygroup.watchlist.back.entities.UserAnimeRelation.WatchStatus;
-import com.mygroup.watchlist.back.repositories.FileResourcesRepository;
 import com.mygroup.watchlist.back.services.AnimeService;
 import com.mygroup.watchlist.dto.AddAnimeDto;
 import com.mygroup.watchlist.dto.AnimeViewDto;
 import com.mygroup.watchlist.exceptions.TitleAlreadyPresentException;
 import com.mygroup.watchlist.exceptions.UnauthenticatedException;
-import java.io.ByteArrayInputStream;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -25,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,7 +31,6 @@ public class AnimeServiceIntegrationTests {
   private static final String DESCRIPTION = "Description does not matter for now,"
       + "because currently we don't have any operations that use it directly,"
       + "so for simplicity all test entities will use this sufficiently long description.";
-  private static final String PICTURE_NAME = "Same logic as description";
   private static final String BERSERK_TITLE = "Berserk";
   private static final String DEATH_NOTE_TITLE = "Death note";
   private static final String COWBOY_BEBOP_TITLE = "Cowboy Bebop";
@@ -48,9 +40,6 @@ public class AnimeServiceIntegrationTests {
   private User user1;
   private User user2;
 
-  @MockBean
-  private FileResourcesRepository fileResourcesRepository;
-
   @Autowired
   private AnimeService animeService;
 
@@ -59,9 +48,9 @@ public class AnimeServiceIntegrationTests {
 
   @BeforeEach
   public void setup() {
-    berserk = new Anime(BERSERK_TITLE, DESCRIPTION, PICTURE_NAME);
-    deathNote = new Anime(DEATH_NOTE_TITLE, DESCRIPTION, PICTURE_NAME);
-    cowboyBebop = new Anime(COWBOY_BEBOP_TITLE, DESCRIPTION, PICTURE_NAME);
+    berserk = new Anime(BERSERK_TITLE, DESCRIPTION, new byte[1]);
+    deathNote = new Anime(DEATH_NOTE_TITLE, DESCRIPTION, new byte[1]);
+    cowboyBebop = new Anime(COWBOY_BEBOP_TITLE, DESCRIPTION, new byte[1]);
     user1 = createRandomUser();
     user2 = createRandomUser();
     entityManager.persist(berserk);
@@ -74,8 +63,7 @@ public class AnimeServiceIntegrationTests {
   }
 
   private static User createRandomUser() {
-    User user = new User(UUID.randomUUID().toString(), "pass", UUID.randomUUID().toString());
-    return user;
+    return new User(UUID.randomUUID().toString(), "pass", UUID.randomUUID().toString());
   }
 
   @Test
@@ -93,12 +81,9 @@ public class AnimeServiceIntegrationTests {
   public void addCommonCase() {
     String newTitle = "new title";
     AddAnimeDto dto = new AddAnimeDto(newTitle, DESCRIPTION, new byte[1]);
-    String picName = "new picture name";
-    when(fileResourcesRepository.save(any(), any(), any())).thenReturn(picName);
     Anime addedAnime = animeService.add(dto);
     assertEquals(newTitle, addedAnime.getTitle());
     assertEquals(DESCRIPTION, addedAnime.getDescription());
-    assertEquals(picName, addedAnime.getPictureName());
   }
 
   @Test
@@ -108,12 +93,9 @@ public class AnimeServiceIntegrationTests {
 
   @Test
   public void getAnimeViewByIdCommonCase() throws Exception {
-    byte[] pic = new byte[3];
-    when(fileResourcesRepository.read(any(), any())).thenReturn(new ByteArrayInputStream(pic));
     AnimeViewDto dto = animeService.getAnimeViewById(berserk.getId());
     assertEquals(BERSERK_TITLE, dto.getTitle());
     assertEquals(DESCRIPTION, dto.getDescription());
-    assertTrue(Arrays.equals(pic, dto.getPicture().readAllBytes()));
     assertTrue(dto.getStatusRepresentation().isEmpty());
   }
 

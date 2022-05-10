@@ -60,10 +60,6 @@ public class AnimePresenter {
     userAnimeService.updateStatus(currentUserId, animeId, status);
   }
 
-  public StreamResource getMainPictureStreamResource(AnimeViewDto dto) {
-    return new StreamResource(UUID.randomUUID().toString(), () -> dto.getPicture());
-  }
-
   public void deleteAnime(long id) {
     animeService.deleteById(id);
   }

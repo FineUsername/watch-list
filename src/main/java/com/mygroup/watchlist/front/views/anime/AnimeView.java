@@ -20,8 +20,11 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import java.io.ByteArrayInputStream;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Route("anime")
@@ -60,7 +63,8 @@ public class AnimeView extends AbstractView implements HasDynamicTitle, HasUrlPa
   }
 
   private VerticalLayout setupForm() {
-    Image picture = new Image(presenter.getMainPictureStreamResource(dto), "main picture");
+    Image picture = new Image(new StreamResource(UUID.randomUUID().toString(),
+        () -> new ByteArrayInputStream(dto.getPicture())), "main picture");
     picture.setClassName("anime-picture");
     H2 title = new H2(dto.getTitle());
     title.setClassName("text");

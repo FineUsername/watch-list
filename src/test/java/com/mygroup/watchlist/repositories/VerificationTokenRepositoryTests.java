@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.mygroup.watchlist.back.entities.User;
 import com.mygroup.watchlist.back.entities.VerificationToken;
 import com.mygroup.watchlist.back.repositories.VerificationTokenRepository;
-import com.mygroup.watchlist.back.security.Role;
 import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.EntityManager;
