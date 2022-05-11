@@ -5,7 +5,7 @@ import com.mygroup.watchlist.back.entities.User;
 import com.mygroup.watchlist.back.repositories.UserRepository;
 import com.mygroup.watchlist.dto.UsernamePasswordEmailDto;
 import com.mygroup.watchlist.dto.ResetPasswordDto;
-import java.io.InputStream;
+import com.mygroup.watchlist.dto.UsernamePasswordDto;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,14 +20,17 @@ public class UserService {
   private final PasswordEncoder passwordEncoder;
   private final ResetPasswordTokenService resetPasswordTokenService;
   private final EmailService emailService;
+  private final SecurityService securityService;
 
   @Autowired
   public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-      ResetPasswordTokenService resetPasswordTokenService, EmailService emailService) {
+      ResetPasswordTokenService resetPasswordTokenService, EmailService emailService,
+      SecurityService securityService) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
     this.resetPasswordTokenService = resetPasswordTokenService;
     this.emailService = emailService;
+    this.securityService = securityService;
   }
 
   /**
@@ -139,6 +142,7 @@ public class UserService {
     if (StringUtils.hasText(dto.getPassword())) {
       user.setPassword(passwordEncoder.encode(dto.getPassword()));
     }
+    securityService.authenticate(user); // in case username or password has been changed
   }
 
 }

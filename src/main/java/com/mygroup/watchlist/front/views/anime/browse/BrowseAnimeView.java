@@ -110,8 +110,7 @@ public class BrowseAnimeView extends AbstractView implements BeforeEnterObserver
       if (presenter.getSearchedTitlePart().equals(searchField.getValue())) {
         return; // User tries to repeat the same search, no need to reload
       }
-      UI.getCurrent().navigate("anime/all",
-          createParameters(presenter.getPage(), searchField.getValue()));
+      UI.getCurrent().navigate("anime/all", createParameters(0, searchField.getValue()));
     });
     searchButton.setClassName("blue-button");
     searchButton.addClassName("blue-button-browse");
