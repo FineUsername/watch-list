@@ -1,0 +1,19 @@
+.change-personal-data-form {
+	background-color: rgb(10 22 37);
+    flex-direction: column;
+    padding: 0;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 75%;
+    border-radius: 15px;
+}
+
+.blue-button-change-personal-data {
+	margin-top: 20px;
+	width: auto;
+	height: 50px;
+}
