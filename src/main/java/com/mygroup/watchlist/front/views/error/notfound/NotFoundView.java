@@ -9,17 +9,16 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.ErrorParameter;
 import com.vaadin.flow.router.HasErrorParameter;
+import com.vaadin.flow.router.NotFoundException;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import java.util.NoSuchElementException;
 
 @Route("not-found")
 @PageTitle("Not found")
 @AnonymousAllowed
 @StyleSheet("context://frontend/not-found-styles/not-found.css")
-public class NotFoundView extends AbstractView
-    implements HasErrorParameter<NoSuchElementException> {
+public class NotFoundView extends AbstractView implements HasErrorParameter<NotFoundException> {
 
   public NotFoundView() {
     removeAll();
@@ -38,7 +37,7 @@ public class NotFoundView extends AbstractView
 
   @Override
   public int setErrorParameter(BeforeEnterEvent event,
-      ErrorParameter<NoSuchElementException> parameter) {
+      ErrorParameter<NotFoundException> parameter) {
     parameter.getException().printStackTrace();
     return 404;
   }
