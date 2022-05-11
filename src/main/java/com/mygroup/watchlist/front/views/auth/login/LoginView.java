@@ -70,7 +70,7 @@ public class LoginView extends AbstractView {
         showNotification("Invalid username or password", 3000, Position.MIDDLE,
             NotificationVariant.LUMO_ERROR);
       } catch (ValidationException e) {
-        // Do nothing here, let user retry.a
+        // Do nothing here, let user retry
       }
     });
     Shortcuts.addShortcutListener(this, loginButton::click, Key.ENTER);
