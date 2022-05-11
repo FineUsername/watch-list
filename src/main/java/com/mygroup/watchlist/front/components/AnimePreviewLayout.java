@@ -34,17 +34,13 @@ public class AnimePreviewLayout extends HorizontalLayout {
   }
 
   private void fillLayout() {
-    previewPicture.setSrc(new StreamResource("", () -> dto.getPicture()));
-    previewPicture.addClickListener(
+    addClickListener(
         click -> UI.getCurrent().navigate(AnimeView.class, String.valueOf(dto.getId())));
+    previewPicture.setSrc(new StreamResource("", () -> dto.getPicture()));
     title.setText(dto.getTitle());
     title.setClassName("text");
-    title.addClickListener(
-        click -> UI.getCurrent().navigate(AnimeView.class, String.valueOf(dto.getId())));
     description.setText(dto.getDescription());
     description.setClassName("text");
-    description.addClickListener(
-        click -> UI.getCurrent().navigate(AnimeView.class, String.valueOf(dto.getId())));
     status.setText(dto.getStatusRepresentation());
     status.setClassName("text");
   }
