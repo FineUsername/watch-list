@@ -1,0 +1,15 @@
+.full-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clear: both;
+    background-color: rgb(43 45 66);
+    justify-content: space-around;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.button {
+	color: rgb(183 188 220);
+}

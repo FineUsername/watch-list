@@ -1,0 +1,17 @@
+.full-footer {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clear: both;
+    background-color: rgb(43 45 66);
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: flex-end;
+}
+
+.button {
+	color: rgb(183 188 220);
+}

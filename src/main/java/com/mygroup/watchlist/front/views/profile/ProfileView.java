@@ -20,7 +20,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.VaadinServletRequest;
+import java.io.ByteArrayInputStream;
+import java.util.UUID;
 import javax.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -56,7 +59,15 @@ public class ProfileView extends AbstractView {
   }
 
   private VerticalLayout setupPictureLayout() {
-    Image picture = new Image(presenter.getProfilePictureStreamResource(user), "profile picture");
+    Image picture = new Image();
+    picture.setAlt("profile picture");
+    if (user.getPicture() == null) {
+      picture
+          .setSrc("https://drive.google.com/uc?export=view&id=13UEHDHA2Y63dcnNfpCZJlicdJPdnpl6s");
+    } else {
+      picture.setSrc(new StreamResource(UUID.randomUUID().toString(),
+          () -> new ByteArrayInputStream(user.getPicture())));
+    }
     picture.setClassName("picture");
 
     BasicUpload pictureUpload = setupProfilePictureUpload(picture);
@@ -85,7 +96,8 @@ public class ProfileView extends AbstractView {
     profilePictureUpload.setUploadButton(new Button(new Icon(VaadinIcon.UPLOAD_ALT)));
     profilePictureUpload.addFinishedListener(event -> {
       user = presenter.updateProfilePicture(user, profilePictureUpload.getValue());
-      profilePicture.setSrc(presenter.getProfilePictureStreamResource(user));
+      profilePicture.setSrc(new StreamResource(UUID.randomUUID().toString(),
+          () -> new ByteArrayInputStream(user.getPicture())));
       profilePictureUpload.getElement().executeJs("this.files=[]");
     });
     return profilePictureUpload;

@@ -1,5 +1,4 @@
 HELP.md
-frontend/
 node_modules/
 *.json
 webpack*
@@ -8,6 +7,8 @@ target/
 mvnw
 mvnw.cmd
 .mvn/
+frontend/
+!**/resources/**/frontend/
 !**/src/main/**/target/
 !**/src/test/**/target/
 

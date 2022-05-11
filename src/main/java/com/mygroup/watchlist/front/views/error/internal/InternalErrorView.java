@@ -27,6 +27,7 @@ public class InternalErrorView extends AbstractView implements HasErrorParameter
 
   @Override
   public int setErrorParameter(BeforeEnterEvent event, ErrorParameter<RuntimeException> parameter) {
+    parameter.getCaughtException().printStackTrace();
     return 500;
   }
 

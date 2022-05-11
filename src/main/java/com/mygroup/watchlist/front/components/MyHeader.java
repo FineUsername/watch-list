@@ -1,5 +1,6 @@
 package com.mygroup.watchlist.front.components;
 
+import com.mygroup.watchlist.back.security.SecurityUtils;
 import com.mygroup.watchlist.front.views.AbstractView;
 import com.mygroup.watchlist.front.views.anime.add.AddAnimeView;
 import com.mygroup.watchlist.front.views.anime.browse.BrowseAnimeView;
@@ -18,7 +19,9 @@ public class MyHeader extends Header {
     HorizontalLayout layout = new HorizontalLayout();
     layout.add(setupLinkButton("Main page", MainView.class));
     layout.add(setupLinkButton("Browse anime", BrowseAnimeView.class));
-    layout.add(setupLinkButton("Add anime", AddAnimeView.class));
+    if (SecurityUtils.isAdminAuthenticated()) {
+      layout.add(setupLinkButton("Add anime", AddAnimeView.class));
+    }
     layout.add(setupLinkButton("Profile", ProfileView.class));
     layout.setClassName("full-header");
     add(layout);

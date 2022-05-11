@@ -1,13 +1,11 @@
 package com.mygroup.watchlist.back.services;
 
-import com.mygroup.watchlist.back.config.PicturesProperties;
 import com.mygroup.watchlist.back.entities.ResetPasswordToken;
 import com.mygroup.watchlist.back.entities.User;
-import com.mygroup.watchlist.back.repositories.FileResourcesRepository;
 import com.mygroup.watchlist.back.repositories.UserRepository;
 import com.mygroup.watchlist.dto.UsernamePasswordEmailDto;
 import com.mygroup.watchlist.dto.ResetPasswordDto;
-import java.io.InputStream;
+import com.mygroup.watchlist.dto.UsernamePasswordDto;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,22 +17,20 @@ import org.springframework.util.StringUtils;
 public class UserService {
 
   private final UserRepository userRepository;
-  private final FileResourcesRepository fileResourcesRepository;
   private final PasswordEncoder passwordEncoder;
   private final ResetPasswordTokenService resetPasswordTokenService;
   private final EmailService emailService;
-  private final PicturesProperties picturesProperties;
+  private final SecurityService securityService;
 
   @Autowired
-  public UserService(UserRepository userRepository, FileResourcesRepository fileResourcesRepository,
-      PasswordEncoder passwordEncoder, ResetPasswordTokenService resetPasswordTokenService,
-      EmailService emailService, PicturesProperties picturesConfigProperties) {
+  public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+      ResetPasswordTokenService resetPasswordTokenService, EmailService emailService,
+      SecurityService securityService) {
     this.userRepository = userRepository;
-    this.fileResourcesRepository = fileResourcesRepository;
     this.passwordEncoder = passwordEncoder;
     this.resetPasswordTokenService = resetPasswordTokenService;
     this.emailService = emailService;
-    this.picturesProperties = picturesConfigProperties;
+    this.securityService = securityService;
   }
 
   /**
@@ -71,21 +67,6 @@ public class UserService {
   }
 
   /**
-   * Gets profile picture of given user as input stream.
-   * 
-   * @param user whose profile picture is returned
-   * @return profile picture as input stream
-   * @throws FileOperationException if something goes wrong during file manipulations
-   * @throws IllegalArgumentException if user is null
-   */
-  public InputStream getPictureStream(User user) {
-    if (user == null) {
-      throw new IllegalArgumentException();
-    }
-    return fileResourcesRepository.read(picturesProperties.getUserFolder(), user.getPictureName());
-  }
-
-  /**
    * Deletes old user's picture if it wasn't a default one, because default is shared between users.
    * Then sets given picture as user's picture.
    * 
@@ -100,11 +81,7 @@ public class UserService {
     if ((user == null) || (newPicture == null) || (newPicture.length == 0)) {
       throw new IllegalArgumentException();
     }
-    if (!user.getPictureName().equals(User.getDefaultPictureName())) {
-      deleteProfilePicture(user);
-    }
-    user.setPictureName(fileResourcesRepository.save(newPicture, picturesProperties.getUserFolder(),
-        picturesProperties.getExtension()));
+    user.setPicture(newPicture);
     return userRepository.save(user);
   }
 
@@ -155,10 +132,6 @@ public class UserService {
         user.getResetPasswordToken().getBody().toString());
   }
 
-  private void deleteProfilePicture(User user) {
-    fileResourcesRepository.delete(picturesProperties.getUserFolder(), user.getPictureName());
-  }
-
   private void changeUserData(UsernamePasswordEmailDto dto, User user) {
     if (StringUtils.hasText(dto.getEmail())) {
       user.setEmail(dto.getEmail());
@@ -169,6 +142,7 @@ public class UserService {
     if (StringUtils.hasText(dto.getPassword())) {
       user.setPassword(passwordEncoder.encode(dto.getPassword()));
     }
+    securityService.authenticate(user); // in case username or password has been changed
   }
 
 }
