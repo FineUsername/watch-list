@@ -32,11 +32,12 @@
 }
 
 .text {
-    white-space: pre-wrap;
-    word-wrap: break-word;
 	align-self: start;
 	margin: 20px;
+	font-weight: 500;
 	color: rgb(141, 213, 229);
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .blue-button-anime {
