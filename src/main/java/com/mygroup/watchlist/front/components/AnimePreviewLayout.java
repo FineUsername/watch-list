@@ -6,6 +6,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.StreamResource;
@@ -15,8 +16,8 @@ public class AnimePreviewLayout extends HorizontalLayout {
   private AnimePreviewDto dto;
   private Image previewPicture = new Image();
   private H2 title = new H2();
-  private H3 description = new H3();
-  private H2 status = new H2();
+  private Paragraph description = new Paragraph();
+  private H3 status = new H3();
 
   public AnimePreviewLayout(AnimePreviewDto dto) {
     getStyle().clear();
@@ -24,6 +25,10 @@ public class AnimePreviewLayout extends HorizontalLayout {
     this.dto = dto;
     previewPicture.setAlt("preview picture");
     previewPicture.setClassName("preview-picture");
+    title.setClassName("browse-text");
+    description.setClassName("browse-text");
+    description.addClassName("description");
+    status.setClassName("browse-status");
     fillLayout();
     add(previewPicture, new VerticalLayout(title, status, description));
   }
@@ -38,11 +43,8 @@ public class AnimePreviewLayout extends HorizontalLayout {
         click -> UI.getCurrent().navigate(AnimeView.class, String.valueOf(dto.getId())));
     previewPicture.setSrc(new StreamResource("", () -> dto.getPicture()));
     title.setText(dto.getTitle());
-    title.setClassName("text");
     description.setText(dto.getDescription());
-    description.setClassName("text");
     status.setText(dto.getStatusRepresentation());
-    status.setClassName("text");
   }
 
 }
