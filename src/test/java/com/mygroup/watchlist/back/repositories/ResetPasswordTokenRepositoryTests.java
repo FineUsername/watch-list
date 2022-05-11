@@ -1,10 +1,9 @@
-package com.mygroup.watchlist.repositories;
+package com.mygroup.watchlist.back.repositories;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.mygroup.watchlist.back.entities.ResetPasswordToken;
 import com.mygroup.watchlist.back.entities.User;
-import com.mygroup.watchlist.back.repositories.ResetPasswordTokenRepository;
 import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.EntityManager;

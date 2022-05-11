@@ -1,10 +1,9 @@
-package com.mygroup.watchlist.repositories;
+package com.mygroup.watchlist.back.repositories;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.mygroup.watchlist.back.entities.User;
-import com.mygroup.watchlist.back.repositories.UserRepository;
 import com.mygroup.watchlist.back.security.Role;
 import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;

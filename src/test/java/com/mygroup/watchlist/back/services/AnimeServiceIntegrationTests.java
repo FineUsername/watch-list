@@ -1,11 +1,10 @@
-package com.mygroup.watchlist.services;
+package com.mygroup.watchlist.back.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import com.mygroup.watchlist.back.entities.Anime;
 import com.mygroup.watchlist.back.entities.User;
 import com.mygroup.watchlist.back.entities.UserAnimeRelation;
 import com.mygroup.watchlist.back.entities.UserAnimeRelation.WatchStatus;
-import com.mygroup.watchlist.back.services.AnimeService;
 import com.mygroup.watchlist.dto.AddAnimeDto;
 import com.mygroup.watchlist.dto.AnimePreviewDto;
 import com.mygroup.watchlist.dto.AnimeViewDto;

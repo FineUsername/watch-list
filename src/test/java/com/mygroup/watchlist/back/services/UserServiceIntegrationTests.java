@@ -1,11 +1,10 @@
-package com.mygroup.watchlist.services;
+package com.mygroup.watchlist.back.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import com.mygroup.watchlist.back.entities.ResetPasswordToken;
 import com.mygroup.watchlist.back.entities.User;
-import com.mygroup.watchlist.back.services.UserService;
 import com.mygroup.watchlist.dto.ResetPasswordDto;
 import com.mygroup.watchlist.dto.UsernamePasswordEmailDto;
 import java.util.Arrays;

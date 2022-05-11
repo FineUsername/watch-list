@@ -1,4 +1,4 @@
-package com.mygroup.watchlist.services;
+package com.mygroup.watchlist.back.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -7,7 +7,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.mygroup.watchlist.back.entities.ResetPasswordToken;
 import com.mygroup.watchlist.back.repositories.ResetPasswordTokenRepository;
-import com.mygroup.watchlist.back.services.ResetPasswordTokenService;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;

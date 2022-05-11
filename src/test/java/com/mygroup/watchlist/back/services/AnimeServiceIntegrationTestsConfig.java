@@ -1,10 +1,7 @@
-package com.mygroup.watchlist.services;
+package com.mygroup.watchlist.back.services;
 
 import com.mygroup.watchlist.back.config.EmailProperties;
 import com.mygroup.watchlist.back.config.PasswordEncoderConfig;
-import com.mygroup.watchlist.back.services.AnimeService;
-import com.mygroup.watchlist.back.services.EmailService;
-import com.mygroup.watchlist.back.services.SecurityService;
 import org.springframework.context.annotation.Import;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 

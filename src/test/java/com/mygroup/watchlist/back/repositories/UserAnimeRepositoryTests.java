@@ -1,4 +1,4 @@
-package com.mygroup.watchlist.repositories;
+package com.mygroup.watchlist.back.repositories;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,7 +6,6 @@ import com.mygroup.watchlist.back.entities.Anime;
 import com.mygroup.watchlist.back.entities.User;
 import com.mygroup.watchlist.back.entities.UserAnimeRelation;
 import com.mygroup.watchlist.back.entities.UserAnimeRelation.WatchStatus;
-import com.mygroup.watchlist.back.repositories.UserAnimeRepository;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,10 +1,9 @@
-package com.mygroup.watchlist.services;
+package com.mygroup.watchlist.back.services;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.mygroup.watchlist.back.repositories.VerificationTokenRepository;
-import com.mygroup.watchlist.back.services.VerificationTokenService;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;

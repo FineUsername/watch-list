@@ -1,4 +1,4 @@
-package com.mygroup.watchlist.services;
+package com.mygroup.watchlist.back.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -10,8 +10,6 @@ import com.mygroup.watchlist.back.config.PasswordEncoderConfig;
 import com.mygroup.watchlist.back.entities.User;
 import com.mygroup.watchlist.back.repositories.UserRepository;
 import com.mygroup.watchlist.back.security.Role;
-import com.mygroup.watchlist.back.services.EmailService;
-import com.mygroup.watchlist.back.services.SecurityService;
 import com.mygroup.watchlist.dto.UsernamePasswordDto;
 import com.mygroup.watchlist.dto.UsernamePasswordEmailDto;
 import com.mygroup.watchlist.exceptions.EmailAlreadyPresentException;

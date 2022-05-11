@@ -1,11 +1,10 @@
-package com.mygroup.watchlist.services;
+package com.mygroup.watchlist.back.services;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.mygroup.watchlist.back.entities.User;
 import com.mygroup.watchlist.back.entities.VerificationToken;
-import com.mygroup.watchlist.back.services.VerificationTokenService;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
