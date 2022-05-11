@@ -56,11 +56,11 @@
 }
 
 .description {
-    white-space: pre-wrap;
     height: auto;
     font-size: 18px;
     font-weight: 500;
     width: 600px;
+    white-space: pre-wrap;
     word-wrap: break-word;
 }
 

@@ -32,6 +32,8 @@
 }
 
 .text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
 	align-self: start;
 	margin: 20px;
 	color: rgb(141, 213, 229);
