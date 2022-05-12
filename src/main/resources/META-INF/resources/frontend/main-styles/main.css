@@ -1,0 +1,37 @@
+.main-view-form {
+	background-color: rgb(10 22 37);
+    flex-direction: column;
+    padding: 0;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    height: 75%;
+    border-radius: 15px;
+}
+
+.icon {
+	color: #3577ff;
+	width: 2.5em;
+	height: 2.5em;
+}
+
+.subheader {
+	color: rgb(240 243 246);
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+.main-view-text {
+	color: rgb(141 213 229);
+	padding: 20px;
+	font-size: 18px;
+}
+
+.blue-button-join {
+    height: 50px;
+    width: 100px;
+    margin-top: 40px;
+}

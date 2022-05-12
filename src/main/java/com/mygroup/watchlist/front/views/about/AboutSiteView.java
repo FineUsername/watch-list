@@ -24,7 +24,7 @@ public class AboutSiteView extends AbstractView {
 
   private VerticalLayout setupForm() {
     H3 description = new H3(
-        "This site is a pet-project for a backend developer (who also had to suffer designing and writing front end");
+        "This site is a pet-project for a backend developer (who also had to suffer designing and writing front end)");
     description.setClassName("description");
     H4 promptToContact = new H4("You can contact developer by:");
     promptToContact.setClassName("common-text");

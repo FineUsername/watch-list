@@ -23,8 +23,8 @@ public class Anime {
   @Column(nullable = false)
   private String description;
 
-  @Column(nullable = false, name = "picture_name")
-  private String pictureName;
+  @Column(nullable = false, name = "picture")
+  private byte[] picture;
 
   @OneToMany(mappedBy = "anime",
       cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
@@ -32,10 +32,10 @@ public class Anime {
 
   public Anime() {}
 
-  public Anime(String title, String description, String pictureName) {
+  public Anime(String title, String description, byte[] picture) {
     this.title = title;
     this.description = description;
-    this.pictureName = pictureName;
+    this.picture = picture;
   }
 
   public long getId() {
@@ -62,12 +62,12 @@ public class Anime {
     this.description = description;
   }
 
-  public String getPictureName() {
-    return pictureName;
+  public byte[] getPicture() {
+    return picture;
   }
 
-  public void setPictureName(String pictureName) {
-    this.pictureName = pictureName;
+  public void setPicture(byte[] picture) {
+    this.picture = picture;
   }
 
   public Set<UserAnimeRelation> getUserAnimeRelations() {

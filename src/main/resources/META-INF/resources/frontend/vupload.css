@@ -1,0 +1,24 @@
+:host {
+  padding: 0;
+  --lumo-font-size-s: 18px;
+  --lumo-font-size-xs: 18px;
+  --lumo-disabled-text-color: rgb(141, 213, 229);
+  --lumo-contrast-20pct: rgb(141, 213, 229);
+  --lumo-contrast-60pct: rgb(141, 213, 229);
+  --lumo-contrast-90pct: rgb(141, 213, 229);
+  --lumo-shade-90pct: rgb(141, 213, 229);
+  --lumo-button-color: rgb(141, 213, 229);
+  --lumo-base-color: rgb(141, 213, 229);
+  --lumo-body-text-color: rgb(141, 213, 229);
+  --lumo-primary-text-color: rgb(141, 213, 229);
+  --lumo-secondary-text-color: rgb(141, 213, 229);
+  --lumo-primary-color: rgb(141 213 229);
+}
+
+[part="name"] {
+  color: var(--lumo-primary-color);
+}
+
+[part="label"] {
+  color: var(--lumo-primary-color);
+}

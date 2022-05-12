@@ -96,6 +96,17 @@ public class SecurityService {
         .orElseThrow(() -> new UnauthenticatedException());
   }
 
+  /**
+   * Place userDetails in security context without any checks.
+   * 
+   * @param userDetails
+   */
+  public void authenticate(UserDetails userDetails) {
+    Authentication authentication = new UsernamePasswordAuthenticationToken(
+        userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+  }
+
   private void register(UsernamePasswordEmailDto dto, Role role, boolean sendConfirmationEmail) {
     if (dto == null) {
       throw new IllegalArgumentException();
@@ -128,9 +139,4 @@ public class SecurityService {
     return user;
   }
 
-  private void authenticate(UserDetails userDetails) {
-    Authentication authentication = new UsernamePasswordAuthenticationToken(
-        userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-  }
 }

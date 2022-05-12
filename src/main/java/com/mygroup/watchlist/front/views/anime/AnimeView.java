@@ -1,6 +1,7 @@
 package com.mygroup.watchlist.front.views.anime;
 
 import com.mygroup.watchlist.back.entities.UserAnimeRelation.WatchStatus;
+import com.mygroup.watchlist.back.security.SecurityUtils;
 import com.mygroup.watchlist.dto.AnimeViewDto;
 import com.mygroup.watchlist.front.components.MyFooter;
 import com.mygroup.watchlist.front.components.MyHeader;
@@ -20,7 +21,9 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import java.io.ByteArrayInputStream;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -60,7 +63,8 @@ public class AnimeView extends AbstractView implements HasDynamicTitle, HasUrlPa
   }
 
   private VerticalLayout setupForm() {
-    Image picture = new Image(presenter.getMainPictureStreamResource(dto), "main picture");
+    Image picture = new Image(
+        new StreamResource("", () -> new ByteArrayInputStream(dto.getPicture())), "main picture");
     picture.setClassName("anime-picture");
     H2 title = new H2(dto.getTitle());
     title.setClassName("text");
@@ -82,7 +86,7 @@ public class AnimeView extends AbstractView implements HasDynamicTitle, HasUrlPa
       register.addClassName("blue-button-anime");
       rightPart.add(promptToRegister, register);
     }
-    if (presenter.isAdminAuthenticated()) {
+    if (SecurityUtils.isAdminAuthenticated()) {
       Button delete = setupDeleteButton();
       rightPart.add(delete);
     }

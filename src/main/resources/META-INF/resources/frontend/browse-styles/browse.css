@@ -1,0 +1,89 @@
+.browse-form {
+	background-color: rgb(10 22 37);
+    flex-direction: column;
+    padding: 0;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.blue-button-browse {
+	margin: 5px;
+	width: auto;
+	height: 50px;
+}
+
+.search-field {
+	width: 400px;
+	margin: 20px;
+	align-self: start;
+}
+
+.browse-status {
+	color: rgb(103 192 255);
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.filter-header {
+	margin: 0;
+}
+
+.search-layout {
+	place-self: flex-start;
+    display: flex;
+    align-items: center;
+}
+
+.browse-text {
+	color: rgb(141, 213, 229);
+}
+
+.checkboxes {
+	width: auto;
+}
+
+.preview-form {
+	color: rgb(141, 213, 229);
+	height: 400px;
+	margin-bottom: 10px;
+	align-self: start;
+}
+
+.browse-description {
+    height: auto;
+    font-size: 18px;
+    font-weight: 500;
+    width: 600px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.animes-checkboxes-layout {
+	align-self:start;
+	margin: 20px;
+}
+
+.found-anime-layout {
+	max-width: 1000px;
+    min-width: 1000px;
+    min-height: 400px;
+    padding: 0;
+    border: 0;
+    align-self: start;
+}
+
+.preview-picture {
+	min-width: 300px;
+	max-width: 300px;
+	height: 400px;
+}
+
+.buttons-layout {
+	margin: 10px;
+}
