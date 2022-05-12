@@ -27,7 +27,7 @@ public class AnimePreviewLayout extends HorizontalLayout {
     previewPicture.setClassName("preview-picture");
     title.setClassName("browse-text");
     description.setClassName("browse-text");
-    description.addClassName("description");
+    description.addClassName("browse-description");
     status.setClassName("browse-status");
     fillLayout();
     add(previewPicture, new VerticalLayout(title, status, description));
