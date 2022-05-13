@@ -9,6 +9,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ResetPasswordTokenRepository extends JpaRepository<ResetPasswordToken, Long> {
 
+  /**
+   * Returns optional with entity with the given body, or Optional.empty() if none found.
+   * 
+   * @param body
+   * @return Optional with entity with the given body, or Optional.empty() if none found.
+   */
   Optional<ResetPasswordToken> findByBody(UUID body);
 
 }
