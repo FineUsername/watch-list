@@ -5,6 +5,7 @@ import com.mygroup.watchlist.front.components.MyHeader;
 import com.mygroup.watchlist.front.views.AbstractView;
 import com.mygroup.watchlist.front.views.error.notfound.NotFoundView;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Route("confirm-registration")
 @AnonymousAllowed
 @PageTitle("Registration confirmed")
+@StyleSheet("context://frontend/confirm-styles/confirm.css")
 public class ConfirmRegistrationView extends AbstractView implements HasUrlParameter<String> {
 
   private final ConfirmRegistrationPresenter presenter;
@@ -26,11 +28,15 @@ public class ConfirmRegistrationView extends AbstractView implements HasUrlParam
   public ConfirmRegistrationView(ConfirmRegistrationPresenter presenter) {
     this.presenter = presenter;
     add(new MyHeader(), setupForm(), new MyFooter());
+    addClassName("centered-frame");
   }
 
   private VerticalLayout setupForm() {
     H2 message = new H2("Registration successfully confirmed");
+    message.setClassName("confirm-message");
     VerticalLayout form = new VerticalLayout(message);
+    form.getStyle().clear();
+    form.setClassName("confirm-form");
     return form;
   }
 
