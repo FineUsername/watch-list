@@ -44,9 +44,7 @@ public class ConfirmRegistrationView extends AbstractView implements HasUrlParam
   public void setParameter(BeforeEvent event, String parameter) {
     try {
       presenter.deleteUsedToken(parameter);
-      System.out.println("SHOULD HAVE DELETED");
     } catch (NoSuchElementException e) {
-      System.out.println(parameter);
       UI.getCurrent().navigate(NotFoundView.class);
     }
   }
