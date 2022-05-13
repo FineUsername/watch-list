@@ -37,13 +37,13 @@ public class MainView extends AbstractView {
         new Label("Here you can track you progress by setting different statuses to titles:");
     introduction.addClassName("subheader");
 
-    Button registrateButton =
+    Button registerButton =
         new Button("Join!", click -> UI.getCurrent().navigate(RegistrationView.class));
-    registrateButton.setClassName("blue-button");
-    registrateButton.addClassName("blue-button-join");
+    registerButton.setClassName("blue-button");
+    registerButton.addClassName("blue-button-join");
 
     VerticalLayout form =
-        new VerticalLayout(title, introduction, setupStatusesDescription(), registrateButton);
+        new VerticalLayout(title, introduction, setupStatusesDescription(), registerButton);
     form.getStyle().clear();
     form.setClassName("main-view-form");
     return form;

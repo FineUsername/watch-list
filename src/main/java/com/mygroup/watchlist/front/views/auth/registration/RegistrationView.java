@@ -65,7 +65,7 @@ public class RegistrationView extends AbstractView {
     H2 title = new H2("Registration");
     title.setClassName("header");
 
-    Button registrateButton = new Button("Registrate", event -> {
+    Button registerButton = new Button("Register", event -> {
       try {
         binder.writeBean(registrationDto);
         presenter.registerAndLogin(registrationDto);
@@ -77,8 +77,8 @@ public class RegistrationView extends AbstractView {
         // User is supposed to read them and try again.
       }
     });
-    registrateButton.setClassName("blue-button");
-    registrateButton.addClassName("blue-buttons-registration");
+    registerButton.setClassName("blue-button");
+    registerButton.addClassName("blue-buttons-registration");
 
     Button alreadyRegisteredButton =
         new Button("Already have an account", event -> UI.getCurrent().navigate(LoginView.class));
@@ -86,7 +86,7 @@ public class RegistrationView extends AbstractView {
     alreadyRegisteredButton.addClassName("blue-buttons-registration");
 
     VerticalLayout form = new VerticalLayout(title, username, email, password1, password2,
-        registrateButton, alreadyRegisteredButton);
+        registerButton, alreadyRegisteredButton);
     form.getStyle().clear();
     form.setClassName("registration-form");
     return form;

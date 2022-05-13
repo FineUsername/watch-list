@@ -77,10 +77,10 @@ public class LoginView extends AbstractView {
     loginButton.setClassName("blue-button");
     loginButton.addClassName("blue-buttons-login");
 
-    Button registrateButton =
-        new Button("Registrate", event -> UI.getCurrent().navigate(RegistrationView.class));
-    registrateButton.setClassName("blue-button");
-    registrateButton.addClassName("blue-buttons-login");
+    Button registerButton =
+        new Button("Register", event -> UI.getCurrent().navigate(RegistrationView.class));
+    registerButton.setClassName("blue-button");
+    registerButton.addClassName("blue-buttons-login");
 
     Button forgotPasswordButton =
         new Button("Forgot password", event -> UI.getCurrent().navigate(ForgotPasswordView.class));
@@ -88,7 +88,7 @@ public class LoginView extends AbstractView {
     forgotPasswordButton.addClassName("blue-buttons-login");
 
     HorizontalLayout buttonsRow = new HorizontalLayout();
-    buttonsRow.add(forgotPasswordButton, registrateButton);
+    buttonsRow.add(forgotPasswordButton, registerButton);
 
     VerticalLayout form = new VerticalLayout();
     form.add(title, username, password, loginButton, buttonsRow);
